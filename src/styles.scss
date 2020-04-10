@@ -1,0 +1,53 @@
+.simple-editable {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  form {
+    width: 100%;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  .dismissable-alert {
+    opacity: 1;
+
+    &.fade-out {
+      opacity: 0;
+      transition: .5s ease-out opacity;
+    }
+  }
+
+  .with-alert {
+    label {
+      display: none;
+    }
+
+    & ~ .editable-actions {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-width: 940px) {
+    &:hover {
+      .editable-actions {
+        display: flex;
+      }
+    }
+  }
+
+  .editable-actions {
+    display: flex;
+
+    @media only screen and (min-width: 940px) {
+      display: none;
+    }
+
+    > * {
+      cursor: pointer;
+      margin: 0 5px;
+    }
+  }
+}
