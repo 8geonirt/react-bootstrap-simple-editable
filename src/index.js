@@ -18,10 +18,13 @@ const SimpleEditable = ({
   errorComponent,
   className,
   copyToClipboardEnabled,
-  hoverButtons
+  hoverButtons,
+  customComponent,
+  display
 }) => {
   const [editing, setEditing] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
+  const [customValue, setCustomValue] = useState(value);
   const {
     handleSubmit,
     register,
@@ -33,7 +36,11 @@ const SimpleEditable = ({
 
   const copyToClipboard = () => {
     const textField = document.createElement('input');
-    textField.value = currentValue;
+    if (type === 'custom') {
+      textField.value = display(customValue).props.children.join('');
+    } else {
+      textField.value = currentValue;
+    }
     document.body.appendChild(textField)
     textField.select();
     document.execCommand('copy');
@@ -47,8 +54,13 @@ const SimpleEditable = ({
 
   const submit = values => {
     setEditing(false);
-    setCurrentValue(values.myInput);
-    onSave(values.myInput);
+    if (type === 'custom') {
+      setCustomValue(values);
+      onSave(values);
+    } else {
+      setCurrentValue(values.myInput);
+      onSave(values.myInput);
+    };
   };
 
   const startEditting = () => {
@@ -97,11 +109,22 @@ const SimpleEditable = ({
     }
   };
 
+  const getValue = () => {
+    if (type === 'custom') {
+      return (
+        <label onClick={startEditting}>{[display(customValue)]}</label>
+      );
+    }
+    return (
+      <label onClick={startEditting}>{currentValue}</label>
+    );
+  };
+
   const displayValue = () => {
     return (
       <div className={`${styles[className]} ${className}__container`}>
         <div className={`${copySuccess.length ? styles['with-alert'] : '' }`}>
-          <label onClick={startEditting}>{currentValue}</label>
+          { getValue() }
           { copyToClipboardEnabled && getDismissableAlert() }
         </div>
         { !copySuccess.length &&
@@ -120,7 +143,7 @@ const SimpleEditable = ({
 
   const getButtons = () => {
     return (
-      <div className="col-md-4 mb-3">
+      <div>
         <button type="submit" className="btn">
           <i className="fa fa-check"></i>
         </button>
@@ -157,6 +180,10 @@ const SimpleEditable = ({
   const getSimpleEditable = () => {
     const hasErrors = errors.myInput;
 
+    if (type === 'custom') {
+      return [customComponent(customValue, getButtons(), submit)];
+    }
+
     return (
       <form onSubmit={handleSubmit(submit)}>
         <div className="form-row">
@@ -178,14 +205,14 @@ const SimpleEditable = ({
 };
 
 SimpleEditable.propTypes = {
-  value: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string,
   onSave: PropTypes.func,
   errorComponent: PropTypes.func,
   className: PropTypes.string,
   copyToClipboardEnabled: PropTypes.bool,
-  hoverButtons: PropTypes.func
+  hoverButtons: PropTypes.func,
+  customComponent: PropTypes.func
 };
 
 SimpleEditable.defaultProps = {
