@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import SimpleEditable from 'react-bootstrap-simple-editable'
+import React, { useState } from 'react';
+import SimpleEditable from 'react-bootstrap-simple-editable';
 import 'react-bootstrap-simple-editable/dist/index.css';
+import CustomComponent from './CustomComponent';
 
 const App = () => {
   const [firstInput, setFirstInput] = useState('First input');
@@ -85,6 +86,30 @@ const App = () => {
                 </div>
               </div>
             </div>
+          );
+        }}
+      />
+      <SimpleEditable
+        type="custom"
+        name="customComponent"
+        value={{firstName:'José', nickname: 'Trino', lastName: 'Espinoza'}}
+        copyToClipboardEnabled
+        display={(values) => {
+          return (
+            <div>{values.firstName} {values.nickname} {values.lastName}</div>
+          );
+        }}
+        onSave={(value) => {
+          console.log('Custom component result', value);
+        }}
+        customComponent={(value, buttons, submit) => {
+          return (
+            <CustomComponent
+              key="fdsfds"
+              value={value}
+              buttons={buttons}
+              submit={submit}
+            />
           );
         }}
       />
