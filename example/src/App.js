@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import SimpleEditable from 'react-bootstrap-simple-editable';
 import 'react-bootstrap-simple-editable/dist/index.css';
 import CustomComponent from './CustomComponent';
+import PhoneCustomComponent from './PhoneCustomComponent';
 
 const App = () => {
   const [firstInput, setFirstInput] = useState('First input');
   const [secondInput, setSecondInput] = useState('Second input');
   const [fourthInput, setFourthInput] = useState('Fourth input');
   const [fifthInput, setFifthInput] = useState('Fifth input');
+  const [phoneType, setPhoneType] = useState('Mobile');
+  const [phone, setPhone] = useState('+521213311312');
+  const [firstName, setFirstName] = useState('José');
+  const [nickname, setNickname] = useState('Trino');
+  const [lastName, setLastName] = useState('Espinoza');
 
   const simpleAction = () => {
     console.log('Simple action...');
+  };
+
+  const handleCustomComponent = (values) => {
+    setPhoneType(values.type);
+    setPhone(values.phone);
   };
 
   return (
@@ -20,9 +31,7 @@ const App = () => {
         name="firstInput"
         value={firstInput}
         copyToClipboardEnabled
-        onSave={(value) => {
-          setFirstInput(value);
-        }}
+        onSave={setFirstInput}
         errorComponent={(error) => {
           return (
             <div className="custom-error invalid-feedback" key="first-input-error">
@@ -35,18 +44,14 @@ const App = () => {
         type="text"
         name="secondInput"
         value={secondInput}
-        onSave={(value) => {
-          setSecondInput(value);
-        }}
+        onSave={setSecondInput}
       />
       <SimpleEditable
         type="text"
         name="fourthInput"
         value={fourthInput}
         copyToClipboardEnabled
-        onSave={(value) => {
-          setFourthInput(value);
-        }}
+        onSave={setFourthInput}
         hoverButtons={() => {
           return (
             <div key="simple-actions">
@@ -69,9 +74,7 @@ const App = () => {
         name="fifthInput"
         value={fifthInput}
         copyToClipboardEnabled
-        onSave={(value) => {
-          setFifthInput(value);
-        }}
+        onSave={setFifthInput}
         hoverButtons={() => {
           return (
             <div key="simple-actions">
@@ -92,20 +95,53 @@ const App = () => {
       <SimpleEditable
         type="custom"
         name="customComponent"
-        value={{firstName:'José', nickname: 'Trino', lastName: 'Espinoza'}}
+        value={{firstName, nickname, lastName}}
         copyToClipboardEnabled
         display={(values) => {
           return (
-            <div>{values.firstName} {values.nickname} {values.lastName}</div>
+            <div key="custom-component-values">{values.firstName} {values.nickname} {values.lastName}</div>
           );
         }}
         onSave={(value) => {
+          setFirstName(value.firstName);
+          setNickname(value.nickname);
+          setLastName(value.lastName);
           console.log('Custom component result', value);
         }}
         customComponent={(value, buttons, submit) => {
           return (
             <CustomComponent
               key="fdsfds"
+              value={value}
+              buttons={buttons}
+              submit={submit}
+            />
+          );
+        }}
+      />
+      <SimpleEditable
+        type="custom"
+        name="customComponentWithSelect"
+        value={{
+          options: [
+            {value: 'Mobile', label: 'Mobile'},
+            {value: 'Office', label: 'Office'},
+          ],
+          type: phoneType,
+          phone: phone
+        }}
+        copyToClipboardEnabled
+        display={(values) => {
+          return (
+            <div key="custom-phone-component-value">{values.type} {values.phone}</div>
+          );
+        }}
+        onSave={handleCustomComponent}
+        customComponent={(value, buttons, submit) => {
+          console.log('component', value);
+          return (
+            <PhoneCustomComponent
+              key="phoneCustomComponent"
               value={value}
               buttons={buttons}
               submit={submit}

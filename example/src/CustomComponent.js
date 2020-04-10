@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form';
 
 const CustomComponent = (props) => {
-  const [currentFirstName, setCurrentFirstName] = useState(props.value.firstName);
-  const [currentNickname, setCurrentNickname] = useState(props.value.nickname);
-  const [currentLastName, setCurrentLastName] = useState(props.value.lastName);
+  const currentFirstName = props.value.firstName;
+  const currentNickname = props.value.nickname;
+  const currentLastName = props.value.lastName;
   const {
     handleSubmit,
     register,
-    errors,
-    setValue
+    errors
   } = useForm();
 
   const submit = (values) => {
