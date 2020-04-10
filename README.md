@@ -14,16 +14,27 @@ npm install --save react-bootstrap-simple-editable
 
 ```jsx
 import React, { Component } from 'react'
-
-import MyComponent from 'react-bootstrap-simple-editable'
+import SimpleEditable from 'react-bootstrap-simple-editable'
 import 'react-bootstrap-simple-editable/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return (
+      <SimpleEditable
+        type="text"
+        name="myInput"
+        value={myInput}
+        onSave={(value) => {
+          setInputValue(value);
+        }}
+      />
+    );
   }
 }
 ```
+
+## Project has just started...
+Going to add support to more stuff later...
 
 ## License
 
