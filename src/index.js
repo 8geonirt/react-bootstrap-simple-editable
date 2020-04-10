@@ -181,7 +181,7 @@ const SimpleEditable = ({
     const hasErrors = errors.myInput;
 
     if (type === 'custom') {
-      return [customComponent(customValue, getButtons(), submit)];
+      return [customComponent(value, getButtons(), submit)];
     }
 
     return (
