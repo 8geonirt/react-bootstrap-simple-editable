@@ -33,6 +33,9 @@ class Example extends Component {
 }
 ```
 
+## Live demo
+(See demos here](https://8geonirt.github.io/react-bootstrap-simple-editable)
+
 ## Project has just started...
 Going to add support to more stuff later...
 
