@@ -11,6 +11,21 @@
     cursor: pointer;
   }
 
+  .clearable {
+    position: relative;
+
+    input.is-invalid ~ .btn-container {
+      display: none;
+    }
+
+    .btn-container {
+      box-shadow: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
   .dismissable-alert {
     opacity: 1;
 
