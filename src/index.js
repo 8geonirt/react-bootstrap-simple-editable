@@ -2,7 +2,7 @@ import React, {
   useState,
   useEffect,
   createContext,
-  memo
+  useRef
 } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
@@ -20,16 +20,19 @@ const SimpleEditable = ({
   copyToClipboardEnabled,
   hoverButtons,
   customComponent,
+  clearable,
   display
 }) => {
   const [editing, setEditing] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
   const [customValue, setCustomValue] = useState(value);
+  const inputRef = useRef();
   const {
     handleSubmit,
     register,
     errors,
-    setValue
+    setValue,
+    clearError
   } = useForm();
 
   const [copySuccess, setCopySuccess] = useState('');
@@ -150,15 +153,43 @@ const SimpleEditable = ({
         <button
           type="button"
           className="btn"
-          onClick={() => { setEditing(false) }}>
+          onClick={() => {
+            clearError(['myInput']);
+            setEditing(false);
+          }}>
           <i className="fa fa-times"></i>
         </button>
       </div>
     );
   };
 
+  const clearInput = () => {
+    setValue('myInput', '');
+    inputRef.current.focus();
+  };
+
   const getInput = () => {
+    if (!clearable) { return getEditable(); }
+
     const hasErrors = errors.myInput;
+
+    return (
+      <div className={`${styles['clearable']}`}>
+        { getEditable() }
+        { hasErrors && displayErrors() }
+        <button
+          type="button"
+          onClick={clearInput}
+          className={`${styles['btn-container']} btn bg-transparent`}>
+          <i className="fa fa-times"></i>
+        </button>
+      </div>
+    );
+  };
+
+  const getEditable = () => {
+    const hasErrors = errors.myInput;
+
     if (type === 'text') {
       return (
         <input
@@ -167,10 +198,13 @@ const SimpleEditable = ({
           autoComplete="off"
           defaultValue={currentValue}
           onKeyDown={handleKeyDown}
-          ref={register({
-            required: 'Required'
-          })}
-          className={`form-control ${hasErrors ? 'is-invalid' : '' }`}
+          ref={(e) => {
+            register(e, {
+              required: 'Required',
+            })
+            inputRef.current = e;
+          }}
+          className={`form-control ${hasErrors ? styles['is-invalid'] + ' is-invalid' : '' }`}
           name="myInput"
         />
       );
@@ -189,7 +223,7 @@ const SimpleEditable = ({
         <div className="form-row">
           <div className="col-md-8 mb-3">
             { getInput() }
-            { hasErrors && displayErrors() }
+            { (!clearable && hasErrors) && displayErrors() }
           </div>
           {getButtons()}
         </div>
@@ -212,12 +246,14 @@ SimpleEditable.propTypes = {
   className: PropTypes.string,
   copyToClipboardEnabled: PropTypes.bool,
   hoverButtons: PropTypes.func,
-  customComponent: PropTypes.func
+  customComponent: PropTypes.func,
+  clearable: PropTypes.bool,
 };
 
 SimpleEditable.defaultProps = {
   className: 'simple-editable',
-  copyToClipboardEnabled: false
+  copyToClipboardEnabled: false,
+  clearable: false
 }
 
 export default SimpleEditable;

@@ -48,6 +48,7 @@ const App = () => {
       />
       <SimpleEditable
         type="text"
+        clearable
         name="fourthInput"
         value={fourthInput}
         copyToClipboardEnabled
@@ -73,6 +74,7 @@ const App = () => {
         type="text"
         name="fifthInput"
         value={fifthInput}
+        clearable
         copyToClipboardEnabled
         onSave={setFifthInput}
         hoverButtons={() => {
