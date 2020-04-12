@@ -21,7 +21,8 @@ const SimpleEditable = ({
   hoverButtons,
   customComponent,
   clearable,
-  display
+  display,
+  iconsClassName
 }) => {
   const [editing, setEditing] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
@@ -134,7 +135,7 @@ const SimpleEditable = ({
           <div className={styles['editable-actions']}>
             { copyToClipboardEnabled &&
                 <span className={styles['editable-action__icon']} onClick={copyToClipboard}>
-                  <i className="fa fa-copy"></i>
+                  <i className={iconsClassName['copy']}></i>
                 </span>
             }
             { getHoverButtons() }
@@ -148,7 +149,7 @@ const SimpleEditable = ({
     return (
       <div>
         <button type="submit" className="btn">
-          <i className="fa fa-check"></i>
+          <i className={iconsClassName['ok']}></i>
         </button>
         <button
           type="button"
@@ -157,7 +158,7 @@ const SimpleEditable = ({
             clearError(['myInput']);
             setEditing(false);
           }}>
-          <i className="fa fa-times"></i>
+          <i className={iconsClassName['cancel']}></i>
         </button>
       </div>
     );
@@ -248,12 +249,18 @@ SimpleEditable.propTypes = {
   hoverButtons: PropTypes.func,
   customComponent: PropTypes.func,
   clearable: PropTypes.bool,
+  iconsClassName: PropTypes.object
 };
 
 SimpleEditable.defaultProps = {
   className: 'simple-editable',
   copyToClipboardEnabled: false,
-  clearable: false
+  clearable: false,
+  iconsClassName: {
+    ok: 'fa fa-check',
+    cancel: 'fa fa-times',
+    copy: 'fa fa-copy'
+  }
 }
 
 export default SimpleEditable;
