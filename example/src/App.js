@@ -29,9 +29,15 @@ const App = () => {
       <SimpleEditable
         type="text"
         name="firstInput"
+        clearable
         value={firstInput}
         copyToClipboardEnabled
         onSave={setFirstInput}
+        iconsClassName={{
+          ok: 'fal fa-check',
+          cancel: 'fal fa-times',
+          copy: 'fal fa-copy'
+        }}
         errorComponent={(error) => {
           return (
             <div className="custom-error invalid-feedback" key="first-input-error">
