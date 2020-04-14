@@ -1,4 +1,5 @@
 .simple-editable {
+  $self: &;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -9,6 +10,13 @@
 
   label {
     cursor: pointer;
+  }
+
+  &.fixed {
+    background-color: red;
+    .editable-actions {
+      display: flex;
+    }
   }
 
   .clearable {
