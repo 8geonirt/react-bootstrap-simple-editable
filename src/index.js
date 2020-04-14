@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import styles from './styles.scss';
 import DismissableAlert from './DismissableAlert';
+import { Editable } from './utils';
 
 const COPY_MESSAGE = 'Successfully copied to clipboard.';
 
@@ -22,7 +23,8 @@ const SimpleEditable = ({
   customComponent,
   clearable,
   display,
-  iconsClassName
+  iconsClassName,
+  copyMessage
 }) => {
   const [editing, setEditing] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
@@ -71,12 +73,6 @@ const SimpleEditable = ({
     setEditing(true);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 27) {
-      setEditing(false);
-    }
-  };
-
   const getHoverButtons = () => {
     if (!hoverButtons) { return null; }
     return [hoverButtons()];
@@ -103,7 +99,7 @@ const SimpleEditable = ({
     if (copySuccess.length) {
       return (
         <DismissableAlert
-          message={COPY_MESSAGE}
+          message={copyMessage || COPY_MESSAGE}
           timeout={1500}
           notifyDismiss={() => {
             notifyDismiss();
@@ -126,13 +122,13 @@ const SimpleEditable = ({
 
   const displayValue = () => {
     return (
-      <div className={`${styles[className]} ${className}__container`}>
+      <div className={`${styles['simple-editable']} ${className}__container`}>
         <div className={`${copySuccess.length ? styles['with-alert'] : '' }`}>
           { getValue() }
           { copyToClipboardEnabled && getDismissableAlert() }
         </div>
         { !copySuccess.length &&
-          <div className={styles['editable-actions']}>
+          <div className={`${styles['editable-actions']} ${className}__actions`}>
             { copyToClipboardEnabled &&
                 <span className={styles['editable-action__icon']} onClick={copyToClipboard}>
                   <i className={iconsClassName['copy']}></i>
@@ -169,6 +165,24 @@ const SimpleEditable = ({
     inputRef.current.focus();
   };
 
+  const getEditable = () => {
+    const hasErrors = errors.myInput;
+    const props = {
+      setEditing,
+      defaultValue: currentValue,
+      className:`form-control ${hasErrors ? styles['is-invalid'] + ' is-invalid' : '' }`,
+      ref: (e) => {
+        register(e, {
+          required: 'Required',
+        })
+        inputRef.current = e;
+      }
+    };
+
+    return Editable(type, props);
+  };
+
+
   const getInput = () => {
     if (!clearable) { return getEditable(); }
 
@@ -186,30 +200,6 @@ const SimpleEditable = ({
         </button>
       </div>
     );
-  };
-
-  const getEditable = () => {
-    const hasErrors = errors.myInput;
-
-    if (type === 'text') {
-      return (
-        <input
-          autoFocus
-          type={type}
-          autoComplete="off"
-          defaultValue={currentValue}
-          onKeyDown={handleKeyDown}
-          ref={(e) => {
-            register(e, {
-              required: 'Required',
-            })
-            inputRef.current = e;
-          }}
-          className={`form-control ${hasErrors ? styles['is-invalid'] + ' is-invalid' : '' }`}
-          name="myInput"
-        />
-      );
-    }
   };
 
   const getSimpleEditable = () => {
@@ -233,7 +223,7 @@ const SimpleEditable = ({
   };
 
   return (
-    <div className={`${styles[className]} ${editing ? 'active' : '' }`}>
+    <div className={`${styles['simple-editable']} ${className} ${editing ? 'active' : '' }`}>
       { !editing ? displayValue() : getSimpleEditable() }
     </div>
   )

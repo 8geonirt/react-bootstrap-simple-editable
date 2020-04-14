@@ -23,19 +23,23 @@ code {
   display: inline-block;
 }
 
-.simple-editable__container .editable-action__icon .fa {
+.my-custom-editable .editable-action__icon .fa {
   padding: 0 5px;
 }
 
-.simple-editable__container .editable-action__icon-bordered {
+.my-custom-editable .editable-action__icon-bordered {
   border-radius: 4px;
   border: 1px solid gray;
 }
 
 @media only screen and (max-width: 767px) {
-  .simple-editable__container .dropdown .dropdown-menu {
+  .my-custom-editable .dropdown .dropdown-menu {
     left: 50% !important;
     margin-left: -184px;
     top: 100%;
   }
+}
+
+.input-container.fixed .my-custom-editable__actions {
+  display: flex;
 }
