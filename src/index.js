@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 import DismissableAlert from './DismissableAlert';
 import { Editable } from './utils';
 
