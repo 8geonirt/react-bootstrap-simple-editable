@@ -13,30 +13,31 @@ npm install --save react-bootstrap-simple-editable
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import SimpleEditable from 'react-bootstrap-simple-editable'
 import 'react-bootstrap-simple-editable/dist/index.css'
 
-class Example extends Component {
-  render() {
-    return (
-      <SimpleEditable
-        type="text"
-        name="myInput"
-        value={myInput}
-        onSave={(value) => {
-          setInputValue(value);
-        }}
-      />
-    );
-  }
+const Example = () => {
+  const [myInput, setMyInput] = useState('example');
+  return (
+    <SimpleEditable
+      type="text"
+      name="myInput"
+      value={myInput}
+      onSave={(value) => {
+        setMyInput(value);
+      }}
+    />
+  );
 }
 ```
 
-## Live demo
-(See demos here](https://8geonirt.github.io/react-bootstrap-simple-editable)
+## DEMO
+[See demos here](https://8geonirt.github.io/react-bootstrap-simple-editable)
+WIP... documentation
 
 ## Project has just started...
+It only supports input type=text and custom components, check examples above.
 Going to add support to more stuff later...
 
 ## License
