@@ -127,7 +127,7 @@ const App = () => {
           copyToClipboardEnabled
           display={(values) => {
             return (
-              <div key="custom-component-values">{values.firstName} {values.nickname} {values.lastName}</div>
+              <div key="custom-component-values"><b>{values.firstName}</b> {values.nickname} {values.lastName}</div>
             );
           }}
           onSave={(value) => {

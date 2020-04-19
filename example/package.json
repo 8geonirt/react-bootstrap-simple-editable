@@ -5,9 +5,9 @@
   "private": true,
   "dependencies": {
     "react": "link:../node_modules/react",
+    "react-bootstrap-simple-editable": "link:..",
     "react-dom": "link:../node_modules/react-dom",
-    "react-scripts": "link:../node_modules/react-scripts",
-    "react-bootstrap-simple-editable": "link:.."
+    "react-scripts": "link:../node_modules/react-scripts"
   },
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",
@@ -23,5 +23,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-innertext": "^1.1.5"
+  }
 }

@@ -4,6 +4,7 @@ import React, {
   createContext,
   useRef
 } from 'react';
+import innerText from 'react-innertext';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import styles from './styles.module.scss';
@@ -43,9 +44,9 @@ const SimpleEditable = ({
   const copyToClipboard = () => {
     const textField = document.createElement('input');
     if (type === 'custom') {
-      textField.value = display(customValue).props.children.join('');
+      textField.value = innerText(display(customValue));
     } else {
-      textField.value = currentValue;
+      textField.value = innerText(currentValue);
     }
     document.body.appendChild(textField)
     textField.select();
