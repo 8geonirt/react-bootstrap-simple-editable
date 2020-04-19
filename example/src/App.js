@@ -165,13 +165,14 @@ const App = () => {
             );
           }}
           onSave={handleCustomComponent}
-          customComponent={(value, buttons, submit) => {
+          customComponent={(value, buttons, submit, setEditing) => {
             console.log('component', value);
             return (
               <PhoneCustomComponent
                 key="phoneCustomComponent"
                 value={value}
                 buttons={buttons}
+                setEditing={setEditing}
                 submit={submit}
               />
             );
