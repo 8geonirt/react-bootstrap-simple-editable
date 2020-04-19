@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-simple-editable",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple editable plugin with simple validations",
   "author": "8geonirt",
   "license": "MIT",
@@ -61,5 +61,16 @@
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "keyword": [
+    "bootstrap",
+    "react",
+    "editable",
+    "simple",
+    "inline",
+    "edit",
+    "inline-edit",
+    "flexible",
+    "customizable"
+  ]
 }
