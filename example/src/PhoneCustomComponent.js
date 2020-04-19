@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form';
 
 const PhoneCustomComponent = (props) => {
@@ -22,6 +22,14 @@ const PhoneCustomComponent = (props) => {
     ));
   };
 
+  const inputRef = useRef();
+
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 27) {
+      props.setEditing(false);
+    }
+  };
+
   return (
     <div className="custom-component">
       <form onSubmit={handleSubmit(submit)}>
@@ -32,7 +40,9 @@ const PhoneCustomComponent = (props) => {
               className="form-control"
               name="type"
               ref={
-                register({required: "Required"})
+                register({
+                  required: "Required"
+                })
               }
             >
               {getOptions()}
@@ -45,11 +55,15 @@ const PhoneCustomComponent = (props) => {
               id="phone"
               autoFocus
               autoComplete="off"
+              onKeyDown={handleKeyDown}
               className="form-control"
               defaultValue={currentPhone}
-              ref={
-                register({required: "Required"})
-              }
+              ref={(e) => {
+                register(e, {
+                  required: "Required"
+                });
+                inputRef.current = e;
+              }}
             />
             { errors.phone &&
               <div className="">
