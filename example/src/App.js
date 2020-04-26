@@ -125,6 +125,11 @@ const App = () => {
           name="customComponent"
           value={{firstName, nickname, lastName}}
           copyToClipboardEnabled
+          clipboardValue={(values) => {
+            return (
+              <div key="custom-component-values">{values.nickname} {values.lastName}</div>
+            );
+          }}
           display={(values) => {
             return (
               <div key="custom-component-values"><b>{values.firstName}</b> {values.nickname} {values.lastName}</div>

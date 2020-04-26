@@ -25,7 +25,8 @@ const SimpleEditable = ({
   clearable,
   display,
   iconsClassName,
-  copyMessage
+  copyMessage,
+  clipboardValue
 }) => {
   const [editing, setEditing] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
@@ -43,11 +44,18 @@ const SimpleEditable = ({
 
   const copyToClipboard = () => {
     const textField = document.createElement('input');
+    let valueToBeCopied = null;
+
     if (type === 'custom') {
-      textField.value = innerText(display(customValue));
+      if (clipboardValue) {
+        valueToBeCopied = clipboardValue(customValue)
+      } else {
+        valueToBeCopied = display(customValue);
+      }
     } else {
-      textField.value = innerText(currentValue);
+      valueToBeCopied = currentValue;
     }
+    textField.value = innerText(valueToBeCopied);
     document.body.appendChild(textField)
     textField.select();
     document.execCommand('copy');
@@ -240,7 +248,8 @@ SimpleEditable.propTypes = {
   hoverButtons: PropTypes.func,
   customComponent: PropTypes.func,
   clearable: PropTypes.bool,
-  iconsClassName: PropTypes.object
+  iconsClassName: PropTypes.object,
+  clipboardValue: PropTypes.func
 };
 
 SimpleEditable.defaultProps = {
