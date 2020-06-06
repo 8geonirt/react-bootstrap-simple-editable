@@ -1,8 +1,10 @@
 import React from 'react';
 import Input from './Input';
+import TextArea from './TextArea';
 
 const INPUT_TYPES = {
-  text: <Input />
+  text: <Input />,
+  textarea: <TextArea />
 }
 
 const Editable = (type, props) => {
