@@ -18,6 +18,11 @@ And I don't want to forget about this one: I am using the library **React Hook F
 I wanted to share this to any developer who wants or needs to build something like in the recording above.
 Hope you find it useful, it's my first library published to NPM and any feedback is always welcome.
 
+## Requirements
+
+This library was built to be used with Bootstrap 4.4+ and the free version of FontAwesome,
+if you are not using FontAwesome feel free to override the `iconsClassName` property to use your custom icons or the Font Awesome Pro version.
+
 ## Install
 
 ```bash
