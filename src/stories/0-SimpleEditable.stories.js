@@ -54,6 +54,20 @@ export const CopyToClipboard = () => {
   )
 };
 
+export const TextArea = () => {
+  const [value, setValue] = useState('TextArea example');
+  return (
+    <SimpleEditable
+      type="textarea"
+      name="input"
+      value={value}
+      onSave={(value) => {
+        setValue(value);
+      }}
+    />
+  )
+};
+
 export const WithCustomComponent = () => {
   const [userName, setUserName] = useState('8geonirt');
   const [firstName, setFirstName] = useState('Trino');

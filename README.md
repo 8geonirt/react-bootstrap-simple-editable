@@ -96,7 +96,7 @@ const Example = () => {
 ## OPTIONS
 |Name   |Type |Description   |
 |---|---|---|
-|type  |  **string** | For now only supports 'text' and 'custom' ([examples](https://8geonirt.github.io/react-bootstrap-simple-editable)) . |
+|type  |  **string** | For now only supports 'text', 'textarea' and 'custom' ([examples](https://8geonirt.github.io/react-bootstrap-simple-editable)) . |
 |onSave   | **function**  | callback that will receive the value after submitted.  |
 |errorComponent   | **function**   | callback with the error object, you can customize the way an error will show up.  |
 |className   |  **string**, *default*: 'simple-editable' | Override this class to customize the styling of the component. |
